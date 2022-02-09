@@ -1,0 +1,8 @@
+- Rewritten Save And Load System
+- Load Now Supports French And English Save Files Loaded Together.
+- Added Mod Support.
+- Made An Example Mod.
+- Added Debouce System
+- Made It So You Can Activate Mods Via The Mods Menu
+- Added Exchange All Button To Exchange Menu Though Instead Of For 3$'s Its Your Bitcoin Count SO In Basic Terms: 1B = 1$
+- Made it so exchange all uses the 3$ price
