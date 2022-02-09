@@ -1,0 +1,2 @@
+Currently The Mods Activation Is Not Working SO What You Do Is Put Your Mod Inside Of Here, Then Inside Of The BTC Miner Tycoon.bat File Insert Call Mods\modname.bat, If You Are Changing Variable Value's Use It At Language Check.
+A Mod Creator Might Be Coming Soon Though Currently You Have To Write Custom Batch Code.
