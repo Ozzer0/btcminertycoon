@@ -4,5 +4,5 @@
 - Made An Example Mod.
 - Added Debouce System
 - Made It So You Can Activate Mods Via The Mods Menu
-- Added Exchange All Button To Exchange Menu Though Instead Of For 3$'s Its Your Bitcoin Count SO In Basic Terms: 1B = 1$
+- Added Exchange All Button To Exchange Menu
 - Made it so exchange all uses the 3$ price
