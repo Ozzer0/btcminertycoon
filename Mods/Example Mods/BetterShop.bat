@@ -172,11 +172,11 @@ echo MIENNE
 echo Bitcoin: %bitcoin%
 echo De l'argent: %money%
 echo 1: Mienne %bitcoinclickvalue% Bitcoin
-echo 2: Allez Ã©changer
-echo 3: Aller Ã  la station de mise Ã  niveau
+echo 2: Allez échanger
+echo 3: Aller à la station de mise à niveau
 echo 4: sauvegarder
 echo 5: charge
-echo 6: ParamÃ¨tres
+echo 6: Paramètres
 echo 7: magasin
 choice /c 1234567 /n >nul
 if %errorlevel%==1 (
@@ -250,15 +250,15 @@ goto btcmine
 )
 :btcexchangefr
 cls
-echo 1 Bitcoin = %moneyexchangevalue%â‚¬
-echo Voulez-vous Ã©changer 1 Bitcoin?
+echo 1 Bitcoin = %moneyexchangevalue%€
+echo Voulez-vous échanger 1 Bitcoin?
 echo 1: Oui
 echo 2: Nine
 choice /c 12 /n >nul
 if %errorlevel%==1 (
 if "%bitcoin%"=="0" (
 cls
-echo Erreur, vous ne pouvez pas Ã©changer 0 Bitcoin
+echo Erreur, vous ne pouvez pas échanger 0 Bitcoin
 timeout 2 /nobreak >nul
 cls
 goto btcminefr
@@ -278,15 +278,15 @@ goto btcminefr
 )
 :btcexchangede
 cls
-echo 1 Bitcoin = %moneyexchangevalue%â‚¬
-echo MÃ¶chten Sie 1 Bitcoin umtauschen?
+echo 1 Bitcoin = %moneyexchangevalue%€
+echo Möchten Sie 1 Bitcoin umtauschen?
 echo 1: Ja
 echo 2: Nein
 choice /c 12 /n >nul
 if %errorlevel%==1 (
 if "%bitcoin%"=="0" (
 cls
-echo Fehler Sie kÃ¶nnen 0 Bitcoin nicht umtauschen
+echo Fehler Sie können 0 Bitcoin nicht umtauschen
 timeout 2 /nobreak >nul
 cls
 goto btcminede
@@ -319,7 +319,7 @@ goto btcupgrade
 if %errorlevel%==2 (cls&&goto btcmine)
 :btcupgradefr
 cls
-echo 1: Mettre Ã  niveau la valeur de clic Bitcoin (10)
+echo 1: Mettre à niveau la valeur de clic Bitcoin (10)
 echo 2: Quitter la boutique
 choice /c 12 /n >nul
 if %errorlevel%==1 (
@@ -444,12 +444,6 @@ if %errorlevel%==1 (
       goto btcmine
    )
    else
-set /a gpu=%gpu% + 1
-set /a bitcoinclickvalue=%bitcoinclickvalue% + 10
-set /a money=%money% - 200
-cls
-goto shop
-)
 if %errorlevel%==2 (
    if %money% LSS 500 (
       cls
@@ -458,14 +452,14 @@ if %errorlevel%==2 (
       cls
       goto btcmine
    )
-   else
-   set /a gpu=%gpu% + 1
-set /a bitcoinclickvalue=%bitcoinclickvalue% + 100
-set /a money=%money% - 500
+if %errorlevel%==3 (cls&&goto btcmine)
+set /a gpu=%gpu% + 1
+set /a bitcoinclickvalue=%bitcoinclickvalue% + 10
+set /a money=%money% - 200
 cls
 goto shop
 )
-if %errorlevel%==3 (cls&goto btcmine)
+if %errorlevel%==2 (cls&goto btcmine)
 :devmodeprompt
 cls
 if %devmode%==1 (goto devroom&end)
@@ -526,7 +520,7 @@ goto:eof
 :prompt
 rem Paramaters: message_description number1 numebr2 title
 rem Number 1: 0 = Ok Button 1 = Ok/Cancel Button 2 = Abort/Retry/Ignore button 3 = Yes/No/Cancel 4 = Yes/No
-rem Number 2: 16 – Critical Icon 32 – Warning Icon 48 – Warning Message Icon 64 – Information Icon
+rem Number 2: 16  Critical Icon 32  Warning Icon 48  Warning Message Icon 64  Information Icon
 cd %temp%
 echo X=MsgBox("%~1",%~2+%~3,"%~4") >msg.vbs
 call msg.vbs

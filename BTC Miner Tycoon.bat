@@ -17,15 +17,6 @@ set "el=underline=[4m,underlineoff=[24m,black=[30m,red=[31m,green=[32m,yell
 set "%el:,=" && set "%"
 set "ps=powershell"
 set /a mysteryboxuses=1
-for %%A in (
-"%~dp0gamelib.bat"
-) do (
-if not exist "%%~A" (
-echo Game Files Missing
-echo Files Missing: "%%~A"
-pause >nul
-)
-)
 :ftpserver
 
 ::updatecheck
@@ -126,7 +117,7 @@ goto btcmine
 if %pageauth%==1 (
 echo Mods List
 cd Mods
-dir /B *.bat
+dir /B *.bat >nul
 if %errorlevel%==1 (cls&echo No Mods Found!)
 cd ..
 echo 1: Activate Mods (Expiremental)
@@ -140,8 +131,6 @@ call Mods\%modname%.bat
 cls
 goto btcmine
 )
-
-
 if /I %modname%==22:10 (
 cls
 if %eastereggowned%==0 (
