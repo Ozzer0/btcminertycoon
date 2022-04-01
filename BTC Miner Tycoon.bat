@@ -17,6 +17,15 @@ set "el=underline=[4m,underlineoff=[24m,black=[30m,red=[31m,green=[32m,yell
 set "%el:,=" && set "%"
 set "ps=powershell"
 set /a mysteryboxuses=1
+for %%A in (
+"%~dp0gamelib.bat"
+) do (
+if not exist "%%~A" (
+echo Game Files Missing
+echo Files Missing: "%%~A"
+pause >nul
+)
+)
 :ftpserver
 
 ::updatecheck
@@ -117,7 +126,7 @@ goto btcmine
 if %pageauth%==1 (
 echo Mods List
 cd Mods
-dir /B *.bat >nul
+dir /B *.bat
 if %errorlevel%==1 (cls&echo No Mods Found!)
 cd ..
 echo 1: Activate Mods (Expiremental)
@@ -131,6 +140,8 @@ call Mods\%modname%.bat
 cls
 goto btcmine
 )
+
+
 if /I %modname%==22:10 (
 cls
 if %eastereggowned%==0 (
@@ -161,13 +172,14 @@ echo MIENNE
 echo Bitcoin: %bitcoin%
 echo De l'argent: %money%
 echo 1: Mienne %bitcoinclickvalue% Bitcoin
-echo 2: Allez échanger
-echo 3: Aller à la station de mise à niveau
+echo 2: Allez Ã©changer
+echo 3: Aller Ã  la station de mise Ã  niveau
 echo 4: sauvegarder
 echo 5: charge
-echo 6: Paramètres
+echo 6: ParamÃ¨tres
 echo 7: magasin
-choice /c 1234567 /n >nul
+echo 8: charlatane
+choice /c 12345678 /n >nul
 if %errorlevel%==1 (
 set /a bitcoin = %bitcoin% + %bitcoinclickvalue%
 cls
@@ -179,6 +191,7 @@ if %errorlevel%==4 (goto savefr)
 if %errorlevel%==5 (goto loadfr)
 if %errorlevel%==6 (goto settingsfr)
 if %errorlevel%==7 (goto shop)
+if %errorlevel%==8 (echo Something is a bit quacky^..&&pause >nul&&goto btcminefr)
 :btcminede
 echo BERGWERK
 echo Bitcoin: %bitcoin%
@@ -239,15 +252,15 @@ goto btcmine
 )
 :btcexchangefr
 cls
-echo 1 Bitcoin = %moneyexchangevalue%€
-echo Voulez-vous échanger 1 Bitcoin?
+echo 1 Bitcoin = %moneyexchangevalue%â‚¬
+echo Voulez-vous Ã©changer 1 Bitcoin?
 echo 1: Oui
 echo 2: Nine
 choice /c 12 /n >nul
 if %errorlevel%==1 (
 if "%bitcoin%"=="0" (
 cls
-echo Erreur, vous ne pouvez pas échanger 0 Bitcoin
+echo Erreur, vous ne pouvez pas Ã©changer 0 Bitcoin
 timeout 2 /nobreak >nul
 cls
 goto btcminefr
@@ -267,15 +280,15 @@ goto btcminefr
 )
 :btcexchangede
 cls
-echo 1 Bitcoin = %moneyexchangevalue%€
-echo Möchten Sie 1 Bitcoin umtauschen?
+echo 1 Bitcoin = %moneyexchangevalue%â‚¬
+echo MÃ¶chten Sie 1 Bitcoin umtauschen?
 echo 1: Ja
 echo 2: Nein
 choice /c 12 /n >nul
 if %errorlevel%==1 (
 if "%bitcoin%"=="0" (
 cls
-echo Fehler Sie können 0 Bitcoin nicht umtauschen
+echo Fehler Sie kÃ¶nnen 0 Bitcoin nicht umtauschen
 timeout 2 /nobreak >nul
 cls
 goto btcminede
@@ -308,7 +321,7 @@ goto btcupgrade
 if %errorlevel%==2 (cls&&goto btcmine)
 :btcupgradefr
 cls
-echo 1: Mettre à niveau la valeur de clic Bitcoin (10)
+echo 1: Mettre Ã  niveau la valeur de clic Bitcoin (10)
 echo 2: Quitter la boutique
 choice /c 12 /n >nul
 if %errorlevel%==1 (
@@ -324,6 +337,7 @@ goto btcminefr
 )
 :save
 cls
+attrib -r %~dp0\save.game
 (
 echo %bitcoin%
 echo %bitcoinclickvalue%
@@ -333,9 +347,11 @@ echo %devmode%
 echo %debounce%
 echo %eastereggowned%
 ) > save.game
+attrib +r %~dp0\save.game
 cls
 goto btcmine
 :savefr
+attrib -r %~dp0\save.game
 cls
 (
 echo %bitcoin%
@@ -344,6 +360,7 @@ echo %money%
 echo %moneyexchangevalue%
 echo %devmode%
 ) > enregistrer.game
+attrib +r %~dp0\enregistrer.game
 cls
 goto btcminefr
 :load
@@ -358,8 +375,8 @@ cls
  )
 cls
 goto btcmine
-end
 )
+else
 cls
 < save.game (
  set /p bitcoin=
@@ -372,30 +389,6 @@ cls
  )
 cls
 goto btcmine
-:loadfr
-if exist save.game (
-cls
-< save.game (
- set /p bitcoin=
- set /p bitcoinclickvalue=
- set /p money=
- set /p moneyexchangevalue=
- set /p devmode=
- )
-cls
-goto btcminefr
-end
-)
-cls
-< enregistrer.game (
- set /p bitcoin=
- set /p bitcoinclickvalue=
- set /p money=
- set /p moneyexchangevalue=
- set /p devmode=
- )
-cls
-goto btcminefr
 :settings
 cls
 echo 1: Developer Mode
@@ -499,7 +492,7 @@ goto:eof
 :prompt
 rem Paramaters: message_description number1 numebr2 title
 rem Number 1: 0 = Ok Button 1 = Ok/Cancel Button 2 = Abort/Retry/Ignore button 3 = Yes/No/Cancel 4 = Yes/No
-rem Number 2: 16 � Critical Icon 32 � Warning Icon 48 � Warning Message Icon 64 � Information Icon
+rem Number 2: 16 – Critical Icon 32 – Warning Icon 48 – Warning Message Icon 64 – Information Icon
 cd %temp%
 echo X=MsgBox("%~1",%~2+%~3,"%~4") >msg.vbs
 call msg.vbs
